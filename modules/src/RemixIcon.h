@@ -1,28 +1,23 @@
 /*
   ==============================================================================
 
-    FontAwesome.h
-    Created: 13 Jul 2014 12:19:09pm
-    Author:  Daniel Lindenfelser
+    RemixIcon.h
+    Created: 17 Apr 2020
+    Authors:  Daniel Lindenfelser, Dmitry Nizhebovsky
 
   ==============================================================================
 */
-
-#ifndef FONTAWESOME_H_INCLUDED
-#define FONTAWESOME_H_INCLUDED
+#pragma once
 
 #include "JuceHeader.h"
 #include "Icons.h"
+#include "..\data\RemixIconData.h"
 
-typedef juce::Image RenderedIcon;
+using RenderedIcon = juce::Image;
 
-class FontAwesome {
+class RemixIcon {
 public:
-    FontAwesome() {}
-    ~FontAwesome() {
-        clearSingletonInstance();
-    }
-    juce_DeclareSingleton(FontAwesome, false)
+    static RemixIcon& getInstance();
     
     RenderedIcon getIcon(Icon icon, float size, juce::Colour colour, float scaleFactor = 1.0f);
     RenderedIcon getRotatedIcon(Icon icon, float size, juce::Colour colour, float iconRotation, float scaleFactor = 1.0f);
@@ -45,11 +40,12 @@ public:
     static void drawAtRotated(juce::Graphics &g, Icon icon, float size, juce::Colour colour, int x, int y, float rotation);
     static void drawCenterdRotated(juce::Graphics &g, Icon icon, float size, juce::Colour colour, juce::Rectangle<int> r, float rotation);
 
+private:
+    RemixIcon() {};
+    ~RemixIcon() {};
     
 private:
-    juce::Typeface::Ptr FontAwesome_ptr = juce::Typeface::createSystemTypefaceFor(FontAwesomeData::fontawesomewebfont_ttf, FontAwesomeData::fontawesomewebfont_ttfSize);
-    
-    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(FontAwesome)
-};
+    juce::Typeface::Ptr RemixIcon_ptr = juce::Typeface::createSystemTypefaceFor(RemixIconData::remixiconwebfont_ttf, RemixIconData::remixiconwebfont_ttfSize);
 
-#endif // FONTAWESOME_H_INCLUDED
+    JUCE_DECLARE_NON_COPYABLE_WITH_LEAK_DETECTOR(RemixIcon)
+};
